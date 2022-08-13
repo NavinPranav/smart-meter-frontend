@@ -1,0 +1,148 @@
+{{ consumerDetails | json }}
+
+{{ smartMeters | json }}
+
+<div class="text-center text-base pt-3 font-normal">
+  <button
+    class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
+    (click)="addSmartMeter()"
+  >
+    Add SmartMeter
+  </button>
+</div>
+
+<div>
+  <div class="container flex justify-center mx-auto pt-20">
+    <h1 class="text-green-700 text-5xl font-extrabold">Students List</h1>
+  </div>
+  <h2
+    class="text-3xl text-center text-gray-800 font-extrabold pb-6 sm:w-auto w-auto mx-auto"
+  >
+    List of the students are given below
+  </h2>
+
+  <br /><br /><br />
+  <div class="md:w-full grid grid-cols-3">
+    <div *ngFor="let sm of smartMeters.data">
+      <div class="w-full bg-gray-50 px-10 pt-10">
+        <div class="container mx-auto">
+          <div
+            role="list"
+            aria-label="Behind the scenes People "
+            class="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around"
+          >
+            <div
+              role="listitem"
+              class="xl:w-full sm:w-3/4 md:w-full relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5"
+            >
+              <div class="rounded overflow-hidden shadow-md bg-white">
+                <div class="absolute -mt-20 w-full flex justify-center">
+                  <div class="h-32 w-32">
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_IbRQvlVj5_heS6MBUBdPrmF7MUJdswsAw&usqp=CAU.jpg"
+                      alt="Display Picture of Andres Berlin"
+                      role="img"
+                      class="rounded-full object-cover h-full w-full shadow-md"
+                    />
+                  </div>
+                  <div class="px-6 mt-16">
+                    <div
+                      class="text-orange-800 font-bold text-2xl text-center mb-1"
+                    >
+                      {{ sm.meterId }}
+                    </div>
+                    <div class="text-left text-base pt-3 font-normal">
+                      <span class="text-orange-700 font-bold ml-10"
+                        >Provider:
+                      </span>
+                      <span
+                        class="whitespace-nowrap overflow-hidden text-ellipsis"
+                      >
+                        {{ sm.provider }}
+                      </span>
+                    </div>
+
+                    <div class="text-left text-base pt-3 font-normal">
+                      <span class="text-orange-700 font-bold ml-10"
+                        >Status:
+                      </span>
+                      <span
+                        class="whitespace-nowrap overflow-hidden text-ellipsis"
+                      >
+                        {{ sm.status }}
+                      </span>
+                    </div>
+
+                    <div class="text-left text-base pt-3 font-normal">
+                      <span class="text-orange-700 font-bold ml-10"
+                        >Readings:
+                      </span>
+                      <span
+                        class="whitespace-nowrap overflow-hidden text-ellipsis"
+                      >
+                        {{ sm.readings }}
+                      </span>
+                    </div>
+
+                    <div class="text-center text-base pt-3 font-normal">
+                      <button
+                        *ngIf="!edit"
+                        class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
+                        (click)="recordReadings(sm.meterId)"
+                      >
+                        Readings
+                      </button>
+                    </div>
+
+                    <div class="text-center text-base pt-3 font-normal">
+                      <button
+                        *ngIf="!edit"
+                        class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
+                        (click)="edit = !edit"
+                      >
+                        Switch provider
+                      </button>
+                    </div>
+
+                    <form [formGroup]="myForm">
+                      <div style="font-size: 12px" *ngIf="edit">
+                        <mat-form-field appearance="outline" class="w-full h-5">
+                          <mat-label>Providers</mat-label>
+                          <mat-select formControlName="name">
+                            <mat-option
+                              *ngFor="let provider of providers.data"
+                              [value]="provider.name"
+                              >{{ provider.name }}</mat-option
+                            >
+                          </mat-select>
+                          <!-- <mat-error class="text-xs" *ngIf="myForm.invalid"
+                                >Select department</mat-error
+                              > -->
+                        </mat-form-field>
+                      </div>
+                      <br /><br />
+
+                      <!-- attr.id="{{ st.id }}"
+                                (click)="editStudent(st); save($event)" -->
+                      <br /><br />
+
+                      <div class="text-center text-base pt-3 font-normal">
+                        <button
+                          *ngIf="edit"
+                          class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
+                          (click)="edit = !edit; switchProvider(sm.meterId)"
+                        >
+                          Switch
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

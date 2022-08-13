@@ -1,0 +1,76 @@
+
+    <form [formGroup]="myForm"
+    class="p-10 bg-white rounded flex justify-center items-center flex-col shadow-md"
+    >
+        <div style="font-size: 12px">
+            <mat-form-field appearance="outline" class="w-full h-5">
+                <mat-label>Smart Meter Id</mat-label>
+            <mat-select formControlName="meterId">
+                <mat-option
+                  *ngFor="let meter of meters"
+                  [value]="meter"
+                  >{{ meter }}</mat-option
+                >
+              </mat-select>
+              </mat-form-field>
+              <br /><br /><br />
+        </div>
+
+        <!-- component -->
+<div *ngIf="readings" class="table w-full p-2">
+    <a
+    class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
+    >View</a
+  >
+      <table class="w-full border">
+        <thead>
+          <tr class="bg-gray-50 border-b">
+            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+              <div class="flex items-center justify-center">S.No</div>
+            </th>
+            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+              <div class="flex items-center justify-center">Date</div>
+            </th>
+            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+              <div class="flex items-center justify-center">Time</div>
+            </th>
+            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+              <div class="flex items-center justify-center">KW</div>
+            </th>
+            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+              <div class="flex items-center justify-center">Provider</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="bg-gray-100 text-center border-b text-sm text-gray-600"
+            *ngFor="let reading of readings; let i = index"
+          >
+            <td class="p-2 border-r">{{ i + 1 }}</td>
+            <td class="p-2 border-r">{{ reading.date }}</td>
+            <td class="p-2 border-r">{{ reading.time }}</td>
+            <td class="p-2 border-r">{{ reading.kw }}</td>
+            <td class="p-2 border-r">{{ reading.provider }}</td>
+            <!-- <td>
+              <a (click)="viewConsumer(consumer.id)"
+                class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
+                >View</a
+              >
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+  
+
+        <button
+                  
+        class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
+       (click)="findByMeterId()"
+      >
+        Find
+      </button>
+    </form>   
+  

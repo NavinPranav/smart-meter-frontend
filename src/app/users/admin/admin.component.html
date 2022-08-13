@@ -1,0 +1,43 @@
+<!-- component -->
+<div class="table w-full p-2">
+    <a (click)="addAdmin()"
+    class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
+    >View</a
+  >
+    <table class="w-full border">
+      <thead>
+        <tr class="bg-gray-50 border-b">
+          <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+            <div class="flex items-center justify-center">S.No</div>
+          </th>
+          <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
+            <div class="flex items-center justify-center">Admins</div>
+          </th>
+        
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-gray-100 text-center border-b text-sm text-gray-600"
+          *ngFor="let admin of admins; let i = index"
+        >
+          <td class="p-2 border-r">{{ i + 1 }}</td>
+          <td class="p-2 border-r">{{ admin.username }}</td>
+  
+          <!-- <td>
+            <a
+              (click)="action(sm.meterId, 'APPROVED')"
+              class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
+              >Enable</a
+            >
+            <a
+              (click)="action(sm.meterId, 'REJECTED')"
+              class="bg-red-500 p-2 text-white hover:shadow-lg text-xs font-thin"
+              >Disable</a
+            >
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
