@@ -75,13 +75,13 @@ export class HomeComponent implements OnInit {
 
   addSmartMeter() {
     this.dialog.open(InstallSmartMeterComponent, {
-      width: 'auto',
+      width: '500px',
     });
   }
 
   recordReadings(meterId: string) {
     this.dialog.open(ReadingsComponent, {
-      width: 'auto',
+      width: '500px',
       data: { meterId: meterId },
     });
   }

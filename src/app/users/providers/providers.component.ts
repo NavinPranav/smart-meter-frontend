@@ -22,7 +22,7 @@ export class ProvidersComponent implements OnInit {
 
   addProvider() {
     const dialogRef = this.dialog.open(CreateFormComponent, {
-      width: 'auto',
+      width: '500px',
       data: {user: 'provider'}
     })
     dialogRef.afterClosed().subscribe(() => {

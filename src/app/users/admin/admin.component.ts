@@ -22,7 +22,7 @@ export class AdminComponent implements OnInit {
 
   addAdmin() {
     const dialogRef = this.dialog.open(CreateFormComponent, {
-      width: 'auto',
+      width: '500px',
       data: {user: 'admin'},
     });
     dialogRef.afterClosed().subscribe(() => 

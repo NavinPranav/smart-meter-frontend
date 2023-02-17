@@ -30,7 +30,7 @@ export class ListConsumersComponent implements OnInit {
 
   addConsumer() {
     const dialogRef = this.dialog.open(CreateFormComponent, {
-      width: 'auto',
+      width: '500px',
       data: {user: 'consumer'}
     })
     dialogRef.afterClosed().subscribe(() => {
