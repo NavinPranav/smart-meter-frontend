@@ -1,51 +1,81 @@
-<!-- component -->
-<div class="table w-full p-2">
-  <table class="w-full border">
-    <thead>
-      <tr class="bg-gray-50 border-b">
-        <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-          <div class="flex items-center justify-center">S.No</div>
-        </th>
-        <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-          <div class="flex items-center justify-center">Meter Id</div>
-        </th>
-        <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-          <div class="flex items-center justify-center">Holder Name</div>
-        </th>
-        <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-          <div class="flex items-center justify-center">Provider</div>
-        </th>
-        <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-          <div class="flex items-center justify-center">Action</div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        class="bg-gray-100 text-center border-b text-sm text-gray-600"
-        *ngFor="let sm of smartmeters; let i = index"
-      >
-        <td class="p-2 border-r">{{ i + 1 }}</td>
-        <td class="p-2 border-r">{{ sm.meterId }}</td>
-        <td class="p-2 border-r">{{ sm.username }}</td>
-        <td class="p-2 border-r">{{ sm.provider }}</td>
+<div class="flex justify-center">
+  <div class="table ml-10 w-full mr-10 p-2">
+    <div class="bg-teal-100 flex p-12 justify-center">
+      <div class="w-64"></div>
+      <div class="ml-48 flex grow h-8 items-center">
+        <div class="h-20 w-20 flex-none mr-5">
+          <img src="https://img.icons8.com/officel/344/energy-meter.png" />
+        </div>
+        <div class="p-10 text-center">
+          <h1 class="text-center text-green-800 text-2xl">
+            List of Smart meters
+          </h1>
+        </div>
+      </div>
 
-        <td>
-          <button 
-            (click)="action(sm.meterId, 'APPROVED')"
-            class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
-            [disabled]="sm.status === 'APPROVED'"
-            >Enable</button
+      <div class="text-right text-base pt-3 font-normal pb-3"></div>
+    </div>
+    <table class="w-full border">
+      <thead>
+        <tr class="bg-gray-50 border-b">
+          <th
+            class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
           >
-          <button
+            <div class="flex items-center justify-center">S.No</div>
+          </th>
+          <th
+            class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+          >
+            <div class="flex items-center justify-center">Meter Id</div>
+          </th>
+          <th
+            class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+          >
+            <div class="flex items-center justify-center">Holder Name</div>
+          </th>
+          <th
+            class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+          >
+            <div class="flex items-center justify-center">Provider</div>
+          </th>
+          <th
+            class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+          >
+            <div class="flex items-center justify-center">Action</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-gray-100 text-center border-b text-sm text-gray-600"
+          *ngFor="let sm of smartmeters; let i = index"
+        >
+          <td class="p-2 border-r">{{ i + 1 }}</td>
+          <td class="p-2 border-r">{{ sm.meterId }}</td>
+          <td class="p-2 border-r">{{ sm.username }}</td>
+          <td class="p-2 border-r">{{ sm.provider }}</td>
 
-            (click)="action(sm.meterId, 'REJECTED')"
-            class="bg-red-500 p-2 text-white hover:shadow-lg text-xs font-thin"
-            [disabled]="sm.status === 'REJECTED'"
-            >Disable</button
-          >
-        </td>
-      </tr>
-    </tbody>
-  </table>
+          <td>
+            <button
+              (click)="action(sm.meterId, 'APPROVED')"
+              class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin disabled:bg-blue-200 disabled:cursor-not-allowed mr-3"
+              [disabled]="sm.status === 'APPROVED'"
+            >
+              Enable
+            </button>
+            <button
+              (click)="action(sm.meterId, 'REJECTED')"
+              class="bg-red-500 p-2 text-white hover:shadow-lg text-xs font-thin disabled:bg-red-200 disabled:cursor-not-allowed"
+              [disabled]="sm.status === 'REJECTED'"
+            >
+              Disable
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="smartmeters.length < 1">
+      <h1>No smartMeter to display</h1>
+    </div>
+  </div>
 </div>

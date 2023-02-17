@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReadingsComponent } from './readings/readings.component';
 import { ListReadingsComponent } from './list-readings/list-readings.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -26,6 +27,7 @@ import { ListReadingsComponent } from './list-readings/list-readings.component';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatProgressSpinnerModule
 
   ]
 })

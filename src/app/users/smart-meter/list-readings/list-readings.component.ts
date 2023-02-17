@@ -15,6 +15,10 @@ export class ListReadingsComponent implements OnInit {
 
   readings!:any;
 
+  calculatedAmount = 0.0;
+
+  loading = false;
+
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -31,7 +35,14 @@ export class ListReadingsComponent implements OnInit {
     this.apiService.getSmartMeter(this.myForm.value.meterId).subscribe((res) => {
       this.readings = res.data.readings
     })
+    this.calculatedAmount = 0.0;
   }
 
-
+  calculateReading() {
+    this.loading = true;
+    this.apiService.calculate(this.myForm.value.meterId).subscribe((res:any) => {
+      this.calculatedAmount = res.data;
+      this.loading = false;
+    })
+  }
 }

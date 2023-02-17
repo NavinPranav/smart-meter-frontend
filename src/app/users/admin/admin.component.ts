@@ -21,10 +21,13 @@ export class AdminComponent implements OnInit {
   }
 
   addAdmin() {
-    this.dialog.open(CreateFormComponent, {
+    const dialogRef = this.dialog.open(CreateFormComponent, {
       width: 'auto',
       data: {user: 'admin'},
     });
+    dialogRef.afterClosed().subscribe(() => 
+    this.apiService.getAllAdmins().subscribe((res) => {this.admins = res.data})
+    )
   }
 
 }

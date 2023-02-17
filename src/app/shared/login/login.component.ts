@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   forms() {
       this.myForm = this.fb.group({
         username: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', [Validators.required]),
+        password: new FormControl(),
         app_user: new FormControl('', [Validators.required]),
       });
     
@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
 
   logIn() {
     if (this.myForm.valid) {
-      console.log(this.userType);
 
       switch (this.userType) {
         case 'admin':
@@ -55,8 +54,6 @@ export class LoginComponent implements OnInit {
             (res:any) => {
               this.router.navigate(['home']);
               localStorage.setItem('admin', 'true');
-              console.log(res.headers.get('jwttoken'), 'erwrwfeafsfsdert');
-              
               localStorage.setItem('jwttoken', res.headers.get('jwttoken') + '')
             },
             () => {
@@ -68,9 +65,10 @@ export class LoginComponent implements OnInit {
           let consumer:any = {};
           consumer['username'] = this.myForm.value.username;
           this.apiService.consumerLogin(consumer).subscribe(
-            () => {
+            (res:any) => {
               this.router.navigate(['home']);
               localStorage.setItem('admin', 'false');
+              localStorage.setItem('consumerId', res.body.data.id)
             },
             () => {
               localStorage.clear();

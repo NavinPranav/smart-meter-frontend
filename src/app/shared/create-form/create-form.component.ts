@@ -57,10 +57,13 @@ export class CreateFormComponent implements OnInit {
         this.dialogRef.close();
       })
     } else if (this.data.user === 'admin') {
-        this.apiService.addAdmin(this.myForm.value).subscribe(() => {
+        this.apiService.addAdmin(this.myForm.value).subscribe((res:any) => {
           this.router.navigate(['admins']);
           this.dialogRef.close();
         })
     }
+  }
+  cancel() {
+    this.dialogRef.close();
   }
 }

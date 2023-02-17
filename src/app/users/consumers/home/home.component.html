@@ -1,143 +1,136 @@
-{{ consumerDetails | json }}
+<div class="flex justify-center">
+  <div class="table ml-10 w-full mr-10 p-2">
+    <div class="bg-teal-100 flex p-12 justify-center">
+      <div class="w-64"></div>
+      <div class="ml-48 flex grow h-8 items-center">
+        <div class="h-20 w-20 flex-none mr-5">
+          <img
+            src="https://img.icons8.com/external-flatart-icons-lineal-color-flatarticons/344/external-meter-energy-source-and-power-industry-flatart-icons-lineal-color-flatarticons.png"
+            alt=""
+          />
+        </div>
+        <div class="p-10 text-center">
+          <h1 class="text-center text-green-800 text-2xl">My Meters</h1>
+        </div>
+      </div>
 
-{{ smartMeters | json }}
-
-<div class="text-center text-base pt-3 font-normal">
-  <button
-    class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
-    (click)="addSmartMeter()"
-  >
-    Add SmartMeter
-  </button>
-</div>
-
-<div>
-  <div class="container flex justify-center mx-auto pt-20">
-    <h1 class="text-green-700 text-5xl font-extrabold">Students List</h1>
-  </div>
-  <h2
-    class="text-3xl text-center text-gray-800 font-extrabold pb-6 sm:w-auto w-auto mx-auto"
-  >
-    List of the students are given below
-  </h2>
-
-  <br /><br /><br />
-  <div class="md:w-full grid grid-cols-3">
-    <div *ngFor="let sm of smartMeters.data">
-      <div class="w-full bg-gray-50 px-10 pt-10">
-        <div class="container mx-auto">
-          <div
-            role="list"
-            aria-label="Behind the scenes People "
-            class="lg:flex md:flex sm:flex items-center xl:justify-between flex-wrap md:justify-around sm:justify-around lg:justify-around"
-          >
-            <div
-              role="listitem"
-              class="xl:w-full sm:w-3/4 md:w-full relative mt-16 mb-32 sm:mb-24 xl:max-w-sm lg:w-2/5"
-            >
-              <div class="rounded overflow-hidden shadow-md bg-white">
-                <div class="absolute -mt-20 w-full flex justify-center">
-                  <div class="h-32 w-32">
-                    <img
-                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTL_IbRQvlVj5_heS6MBUBdPrmF7MUJdswsAw&usqp=CAU.jpg"
-                      alt="Display Picture of Andres Berlin"
-                      role="img"
-                      class="rounded-full object-cover h-full w-full shadow-md"
-                    />
-                  </div>
-                  <div class="px-6 mt-16">
-                    <div
-                      class="text-orange-800 font-bold text-2xl text-center mb-1"
+      <div class="text-right text-base pt-3 font-normal pb-3">
+        <button
+          class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 hover:bg-blue-400"
+          (click)="addSmartMeter()"
+        >
+          Add Smart meter
+        </button>
+      </div>
+    </div>
+    <div
+      class="bg-white shadow-lg overflow-hidden flex flex-col items-center mx-auto"
+    >
+      <div class="md:w-full grid grid-cols-4 items-center">
+        <div *ngFor="let sm of smartMeters.data; let i = index">
+          <div class="focus:outline-none mx-2 xl:mb-0 m-28 pr-3">
+            <div>
+              <img
+                alt="person capturing an image"
+                src="data:image/jpeg;base64,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
+                    /MP8A+T8Rq70mgdIZWpYzlmeHZ93e6lC0puZ0i+J7e5Wagcp2EnCQ6wFhcm1taKwUKCzTEB1yMY7UWvcGPadoc11i0g7FtxrBz0XWM7USkxCh8awc9F1jO1HGsHPRdYztQpMQofGsHPRdYztRxrBz0XWM7UKTF6xR3z89uX2nzKHHpCAnOaK9rgY26gL3Ofg+dbu0zDbOaK9sryNzBzNxfweRBKqPRY7eXp5ORcnTnzJ+1H+IxenGsHPRdYztXhUP7qtT0tppXuabMcC1rWOD3OkeMmCwtc7SEWHTKFM/2f0j5JH/AO4Z+lH+z2kjkKaIHldUCw9OFpPQiO3vY+BWf+bP4ECeFwdyehO44DG54fI97pZHAWaXuAHejWGhrWtF9jV3kAhCEAtXBbIQaE9KyB0LJCygEIQgiyUUTzd8bHHlcxpPSQteLIOZi9xvYpiEEPiyDmYvcb2I4sg5mL3G9imIQQ+LIOZi9xvYtXaOh1CGPq2dinLVzboIY0dCf91H7jNR9i24th5mP3GdilgLKCHxZBzMXuN7F6w07GZMY1oOvC0N/svdCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCAQhCD//2Q=="
+                tabindex="0"
+                class="focus:outline-none w-auto h-44 ml-auto mr-auto"
+              />
+            </div>
+            <div class="bg-white">
+              <div class="flex items-center justify-between px-4 pt-4">
+                <div>Meter = {{ i + 1 }}</div>
+                <button
+                  class="bg-green-500 py-1 px-6 rounded-full text-green-100"
+                  *ngIf="sm.status === 'APPROVED'"
+                >
+                  Enabled
+                </button>
+                <button
+                  class="bg-red-500 py-1 px-6 rounded-full text-red-100"
+                  *ngIf="sm.status === 'REJECTED'"
+                >
+                  Disabled
+                </button>
+              </div>
+              <div class="p-4">
+                <div class="flex items-center">
+                  <h2
+                    tabindex="0"
+                    class="focus:outline-none text-lg font-semibold"
+                  >
+                    {{ sm.meterId }}
+                  </h2>
+                </div>
+                <p
+                  tabindex="0"
+                  class="focus:outline-none text-xs text-gray-600 mt-2"
+                >
+                  Provider: {{ sm.provider }}
+                </p>
+                <div class="flex mt-4" *ngIf="sm.status === 'APPROVED'">
+                  <div>
+                    <button
+                      tabindex="0"
+                      class="focus:outline-none text-xs text-gray-600 px-2 bg-gray-200 py-1"
+                      (click)="recordReadings(sm.meterId)"
                     >
-                      {{ sm.meterId }}
-                    </div>
-                    <div class="text-left text-base pt-3 font-normal">
-                      <span class="text-orange-700 font-bold ml-10"
-                        >Provider:
-                      </span>
-                      <span
-                        class="whitespace-nowrap overflow-hidden text-ellipsis"
-                      >
-                        {{ sm.provider }}
-                      </span>
-                    </div>
-
-                    <div class="text-left text-base pt-3 font-normal">
-                      <span class="text-orange-700 font-bold ml-10"
-                        >Status:
-                      </span>
-                      <span
-                        class="whitespace-nowrap overflow-hidden text-ellipsis"
-                      >
-                        {{ sm.status }}
-                      </span>
-                    </div>
-
-                    <div class="text-left text-base pt-3 font-normal">
-                      <span class="text-orange-700 font-bold ml-10"
-                        >Readings:
-                      </span>
-                      <span
-                        class="whitespace-nowrap overflow-hidden text-ellipsis"
-                      >
-                        {{ sm.readings }}
-                      </span>
-                    </div>
-
-                    <div class="text-center text-base pt-3 font-normal">
-                      <button
-                        *ngIf="!edit"
-                        class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
-                        (click)="recordReadings(sm.meterId)"
-                      >
-                        Readings
-                      </button>
-                    </div>
-
-                    <div class="text-center text-base pt-3 font-normal">
-                      <button
-                        *ngIf="!edit"
-                        class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
-                        (click)="edit = !edit"
-                      >
-                        Switch provider
-                      </button>
-                    </div>
-
+                      Record Readings
+                    </button>
+                  </div>
+                  <div class="pl-2">
+                    <button
+                      class="focus:outline-none text-xs text-gray-600 px-2 bg-gray-200 py-1"
+                      (click)="edit = !edit; selected === sm.meterId ? selected = '' : selected = sm.meterId"
+                    >
+                      Switch Provider
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="selected === sm.meterId">
+                  <div class="text-center text-base pt-3 font-normal">
                     <form [formGroup]="myForm">
-                      <div style="font-size: 12px" *ngIf="edit">
-                        <mat-form-field appearance="outline" class="w-full h-5">
+                      <div style="font-size: 12px">
+                        {{ providers.data }}
+                        <mat-form-field appearance="outline" class="h-5">
                           <mat-label>Providers</mat-label>
                           <mat-select formControlName="name">
                             <mat-option
-                              *ngFor="let provider of providers.data"
+                              *ngFor="let provider of providers"
                               [value]="provider.name"
-                              >{{ provider.name }}</mat-option
                             >
+                              {{ provider.name }}
+                            </mat-option>
                           </mat-select>
-                          <!-- <mat-error class="text-xs" *ngIf="myForm.invalid"
-                                >Select department</mat-error
-                              > -->
                         </mat-form-field>
                       </div>
-                      <br /><br />
-
-                      <!-- attr.id="{{ st.id }}"
-                                (click)="editStudent(st); save($event)" -->
-                      <br /><br />
-
-                      <div class="text-center text-base pt-3 font-normal">
-                        <button
-                          *ngIf="edit"
-                          class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
-                          (click)="edit = !edit; switchProvider(sm.meterId)"
-                        >
-                          Switch
-                        </button>
-                      </div>
+                      <br />
+                      <br />
+                      <button
+                        *ngIf="selected === sm.meterId"
+                        class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs mx-3 font-medium w-32 rounded-full hover:bg-blue-300"
+                        (click)="edit = !edit; switchProvider(sm.meterId)"
+                      >
+                        Switch
+                      </button>
                     </form>
                   </div>
+  
+                  <div
+                    class="flex items-center justify-between py-4 w-28"
+                    *ngIf="selected === sm.meterId"
+                  >
+                    <h2 class="text-red-700 text-xs font-semibold">Note:</h2>
+                    <h3
+                      class="focus:outline-none text-red-600 text-xl font-semibold"
+                    >
+                      The current reading will be calculated from the changed
+                      provider
+                    </h3>
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>

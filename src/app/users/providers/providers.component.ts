@@ -21,16 +21,21 @@ export class ProvidersComponent implements OnInit {
   }
 
   addProvider() {
-    this.dialog.open(CreateFormComponent, {
+    const dialogRef = this.dialog.open(CreateFormComponent, {
       width: 'auto',
       data: {user: 'provider'}
     })
+    dialogRef.afterClosed().subscribe(() => {
+      this.apiService.getProviders().subscribe((res) => {
+        this.providers = res.data;
+      })
+    });
   }
 
   changeProviderStatus(providerName:string, status: boolean) {
 
     this.apiService.changeProviderStatus(providerName, {'active': status}).subscribe((res) => {
-      console.log(res)
+      this.providers = res.data;
     })
   }
 

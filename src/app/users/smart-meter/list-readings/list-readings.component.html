@@ -1,76 +1,112 @@
+<div class="flex flex-col">
+  <div class="table ml-10 w-auto mr-10 p-2">
+    <div class="bg-teal-100 flex p-12 justify-center">
+      <div class="w-64"></div>
+      <div class="ml-48 flex grow h-8 items-center">
+        <div class="h-20 w-20 flex-none mr-5">
+          <img
+            src="https://img.icons8.com/external-photo3ideastudio-gradient-photo3ideastudio/344/external-smart-meter-internet-of-things-photo3ideastudio-gradient-photo3ideastudio.png"
+            alt=""
+          />
+        </div>
+        <div class="p-10 text-center">
+          <h1 class="text-center text-green-800 text-2xl">Meter Readings</h1>
+        </div>
+      </div>
 
-    <form [formGroup]="myForm"
-    class="p-10 bg-white rounded flex justify-center items-center flex-col shadow-md"
+      <div class="text-right text-base pt-3 font-normal pb-3"></div>
+    </div>
+
+    <form
+      [formGroup]="myForm"
+      class="p-10 bg-white rounded flex justify-center items-center flex-col shadow-md outline-none"
     >
+      <div class="flex">
         <div style="font-size: 12px">
-            <mat-form-field appearance="outline" class="w-full h-5">
-                <mat-label>Smart Meter Id</mat-label>
+          <mat-form-field appearance="outline" class="w-full h-5">
+            <mat-label>Smart Meter Id</mat-label>
             <mat-select formControlName="meterId">
-                <mat-option
-                  *ngFor="let meter of meters"
-                  [value]="meter"
-                  >{{ meter }}</mat-option
-                >
-              </mat-select>
-              </mat-form-field>
-              <br /><br /><br />
+              <mat-option *ngFor="let meter of meters" [value]="meter">{{
+                meter
+              }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <button
+          class="bg-blue-500 items-center w-full h-full text-white px-4 py-3 focus:outline-none"
+          (click)="findByMeterId()"
+        >
+          Find
+        </button>
+      </div>
+      <br /><br /><br />
+      <div *ngIf="readings" class="w-full border">
+        <table class="w-full border">
+          <thead>
+            <tr class="bg-gray-50 border-b">
+              <th
+                class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+              >
+                <div class="flex items-center justify-center">S.No</div>
+              </th>
+              <th
+                class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+              >
+                <div class="flex items-center justify-center">Date</div>
+              </th>
+              <th
+                class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+              >
+                <div class="flex items-center justify-center">Time</div>
+              </th>
+              <th
+                class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+              >
+                <div class="flex items-center justify-center">KW</div>
+              </th>
+              <th
+                class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500"
+              >
+                <div class="flex items-center justify-center">Provider</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="bg-gray-100 text-center border-b text-sm text-gray-600"
+              *ngFor="let reading of readings; let i = index"
+            >
+              <td class="p-2 border-r">{{ i + 1 }}</td>
+              <td class="p-2 border-r">{{ reading.date }}</td>
+              <td class="p-2 border-r">{{ reading.time }}</td>
+              <td class="p-2 border-r">{{ reading.kw }}</td>
+              <td class="p-2 border-r">{{ reading.provider }}</td>
+              <!-- <td>
+            <a (click)="viewConsumer(consumer.id)"
+              class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
+              >View</a
+            >
+          </td> -->
+            </tr>
+          </tbody>
+        </table>
+        <br><br><br>
+        <div class="flex justify-center items-center">
+          <button *ngIf="calculatedAmount === 0"
+          class="bg-blue-500 items-center h-full text-white px-4 py-3 focus:outline-none"
+          (click)="calculateReading()"
+        >
+          Calculate
+        </button>
+          <mat-spinner [diameter]="60" *ngIf="loading"></mat-spinner>
+        
+        <div *ngIf="calculatedAmount">
+          <span>Payable amount = </span>
+          {{ calculatedAmount }}
+        </div>
         </div>
 
-        <!-- component -->
-<div *ngIf="readings" class="table w-full p-2">
-    <a
-    class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
-    >View</a
-  >
-      <table class="w-full border">
-        <thead>
-          <tr class="bg-gray-50 border-b">
-            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-              <div class="flex items-center justify-center">S.No</div>
-            </th>
-            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-              <div class="flex items-center justify-center">Date</div>
-            </th>
-            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-              <div class="flex items-center justify-center">Time</div>
-            </th>
-            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-              <div class="flex items-center justify-center">KW</div>
-            </th>
-            <th class="p-2 border-r cursor-pointer text-sm font-thin text-gray-500">
-              <div class="flex items-center justify-center">Provider</div>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            class="bg-gray-100 text-center border-b text-sm text-gray-600"
-            *ngFor="let reading of readings; let i = index"
-          >
-            <td class="p-2 border-r">{{ i + 1 }}</td>
-            <td class="p-2 border-r">{{ reading.date }}</td>
-            <td class="p-2 border-r">{{ reading.time }}</td>
-            <td class="p-2 border-r">{{ reading.kw }}</td>
-            <td class="p-2 border-r">{{ reading.provider }}</td>
-            <!-- <td>
-              <a (click)="viewConsumer(consumer.id)"
-                class="bg-blue-500 p-2 text-white hover:shadow-lg text-xs font-thin"
-                >View</a
-              >
-            </td> -->
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    
-  
-
-        <button
-                  
-        class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none"
-       (click)="findByMeterId()"
-      >
-        Find
-      </button>
-    </form>   
-  
+      </div>
+    </form>
+  </div>
+</div>

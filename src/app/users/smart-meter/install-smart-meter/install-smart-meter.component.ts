@@ -38,4 +38,8 @@ export class InstallSmartMeterComponent implements OnInit {
     })
   }
 
+  cancel() {
+    this.dialogRef.close();
+  }
+
 }

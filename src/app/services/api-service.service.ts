@@ -1,14 +1,21 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { API } from 'src/environments/common/endpoints';
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiServiceService {
 
-  constructor( private http: HttpClient) { }
+  jwttoken: HttpHeaders = new HttpHeaders({
+    Authorization: localStorage.getItem('jwttoken') + '',
+  });
+
+  constructor( private http: HttpClient) {
+   }
+
+  
 
   public adminLogin(admin: any) : Observable<any> {
     return this.http.post<any>('http://localhost:8080/admin/login/', admin, {
@@ -28,15 +35,15 @@ export class ApiServiceService {
     return this.http.put<any> ('http://localhost:8080/admin/provider/' + providerName, providerStatus)
   }
   public addAdmin(adminData:any):Observable<any> {
-    return this.http.post<any> ('http://localhost:8080/admin/add-admin/', adminData)
+    return this.http.post<any> ('http://localhost:8080/admin/add-admin/', adminData, {headers: this.jwttoken})
   }
 
   public addProvider(providerData:any): Observable<any> {
-    return this.http.post<any> ('http://localhost:8080/admin/add-provider/', providerData)
+    return this.http.post<any> ('http://localhost:8080/admin/add-provider/', providerData, {headers: this.jwttoken})
   }
 
   public addConsumer(consumerData:any): Observable<any> {
-    return this.http.post<any> ('http://localhost:8080/consumer/create/', consumerData)
+    return this.http.post<any> ('http://localhost:8080/consumer/create/', consumerData, {headers: this.jwttoken})
   }
 
   public consumerLogin(consumerData: any):Observable<any> {
@@ -72,11 +79,15 @@ export class ApiServiceService {
   }
 
   public getAllAdmins(): Observable<any> {
-    return this.http.get<any>('http://localhost:8080/admin/get-all/admins')
+    return this.http.get<any>('http://localhost:8080/admin/get-all/admins', {headers: this.jwttoken})
   }
 
   public recordReading(meterId: string, readings: any): Observable<any> {
     return this.http.post<any>('http://localhost:8080/smart-meter/reading/'+ meterId, readings)
+  }
+
+  public calculate(meterId: string): Observable<any> {
+    return this.http.get<any>('http://localhost:8080/smart-meter/calculate/'+ meterId).pipe(delay(1000))
   }
 
 

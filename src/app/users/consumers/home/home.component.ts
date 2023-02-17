@@ -9,66 +9,80 @@ import { ReadingsComponent } from '../../smart-meter/readings/readings.component
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private apiService: ApiServiceService,
+  constructor(
+    private apiService: ApiServiceService,
     private fb: FormBuilder,
-    private router: Router,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog
+  ) {}
 
-  consumerDetails!:any;
+  consumerDetails!: any;
 
   edit = false;
 
-  myForm!:any;
+  myForm!: any;
 
-  providers!:any;
+  providers: any = [];
 
-  smartMeters!:any;
+  selected:any;
+
+  smartMeters!: any;
   ngOnInit(): void {
-    if(localStorage.getItem('consumerId') !== null) {
-      this.apiService.getConsumer(localStorage.getItem('consumerId')).subscribe((res) => {
-        this.consumerDetails = res.data
-        console.log(res.data.meterId)
-      this.apiService.getSmartMetersById(res.data.id).subscribe((meters) => {
-        this.smartMeters = meters;
-      })
-
-      })
+    if (localStorage.getItem('consumerId') !== null) {
+      this.apiService
+        .getConsumer(localStorage.getItem('consumerId'))
+        .subscribe((res) => {
+          this.consumerDetails = res.data;
+          this.apiService
+            .getSmartMetersById(res.data.id)
+            .subscribe((meters) => {
+              this.smartMeters = meters;
+            });
+        });
       this.myForm = this.fb.group({
-        name: new FormControl()
+        name: new FormControl(),
       });
     }
 
-    this.apiService.getProviders().subscribe((res:any) => {
-      this.providers = res
-    } )
-
+    this.apiService.getProviders().subscribe((res: any) => {
+      for (let i of res.data) {
+        if (i.active) {
+          this.providers.push(i);
+        }
+      }
+    });
   }
 
-  switchProvider (meterId:string) {
-    console.log(meterId, this.myForm.value)
-    this.apiService.changeProvider(meterId, this.myForm.value).subscribe((res:any) => {
-      console.log(res)
-    })
-    
+  switchProvider(meterId: string) {
+    console.log(meterId, this.myForm.value);
+    this.apiService
+      .changeProvider(meterId, this.myForm.value)
+      .subscribe(() => {
+        this.apiService
+          .getConsumer(localStorage.getItem('consumerId'))
+          .subscribe((res) => {
+            this.consumerDetails = res.data;
+            this.apiService
+              .getSmartMetersById(res.data.id)
+              .subscribe((meters) => {
+                this.smartMeters = meters;
+              });
+          });
+      });
   }
 
   addSmartMeter() {
     this.dialog.open(InstallSmartMeterComponent, {
-     width:'auto'
-    })
+      width: 'auto',
+    });
   }
 
   recordReadings(meterId: string) {
     this.dialog.open(ReadingsComponent, {
       width: 'auto',
-      data: {'meterId': meterId}
-    })
+      data: { meterId: meterId },
+    });
   }
-
-
-
 }

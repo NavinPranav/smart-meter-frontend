@@ -1,39 +1,37 @@
-<body class="font-poppins antialiased">
-  <div
-    id="view"
-    class="h-full w-screen flex flex-row"
-  >
-    <button
-      class="p-2 border-2 bg-white rounded-md border-gray-200 shadow-lg text-gray-500 focus:bg-teal-500 focus:outline-none focus:text-white absolute top-0 left-0 sm:hidden"
-    >
-      <svg
-        class="w-5 h-5 fill-current"
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-          clip-rule="evenodd"
-        ></path>
-      </svg>
-    </button>
+<body class="h-full font-poppins antialiased bg-gray-200 max-w-max">
+  <div id="view" class="h-auto w-screen flex flex-row">
     <div
       id="sidebar"
-      class="bg-white h-screen md:block shadow-xl px-3 w-30 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out"
-      x-show="sidenav"
+      class="bg-white h-screen md:block shadow-xl w-40 md:w-60 lg:w-60 overflow-x-hidden transition-transform duration-300 ease-in-out"
     >
-      <div class="space-y-6 md:space-y-10 mt-10">
-        <h1 class="hidden md:block font-bold text-sm md:text-xl text-center">
-          
-          Menu
-        </h1>
+      <div>
+        <div class="flex justify-center pt-10 pb-10 items-center bg-teal-100">
+          <div class="flex flex-row justify-center items-center">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-menu-button-wide-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M1.5 0A1.5 1.5 0 0 0 0 1.5v2A1.5 1.5 0 0 0 1.5 5h13A1.5 1.5 0 0 0 16 3.5v-2A1.5 1.5 0 0 0 14.5 0h-13zm1 2h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1 0-1zm9.927.427A.25.25 0 0 1 12.604 2h.792a.25.25 0 0 1 .177.427l-.396.396a.25.25 0 0 1-.354 0l-.396-.396zM0 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V8zm1 3v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2H1zm14-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v2h14zM2 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 4a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5z"
+              />
+            </svg>
+            <div class="hidden md:block font-bold text-sm md:text-xl ml-2">
+              Menu
+            </div>
+          </div>
+        </div>
 
-        <div id="menu" class="flex flex-col space-y-2">
+        <div id="menu" class="flex flex-col space-y-2 px-4 mt-5">
           <a
-            (click)="providers()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            (click)="providers(); selected == 'Providers' ? selected = null: selected = 'Providers'"
+            *ngIf="adminUser()"
+            class="one text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out cursor-pointer"
+            [style.background-color]="selected == 'Providers' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Providers' ? 'white': ''"
           >
             <svg
               class="w-6 h-6 fill-current inline-block"
@@ -45,11 +43,14 @@
                 d="M11 17a1 1 0 001.447.894l4-2A1 1 0 0017 15V9.236a1 1 0 00-1.447-.894l-4 2a1 1 0 00-.553.894V17zM15.211 6.276a1 1 0 000-1.788l-4.764-2.382a1 1 0 00-.894 0L4.789 4.488a1 1 0 000 1.788l4.764 2.382a1 1 0 00.894 0l4.764-2.382zM4.447 8.342A1 1 0 003 9.236V15a1 1 0 00.553.894l4 2A1 1 0 009 17v-5.764a1 1 0 00-.553-.894l-4-2z"
               ></path>
             </svg>
-            <span class="">Providers</span>
+            <span class="ml-3">Providers</span>
           </a>
           <a
-            (click)="smartMeter()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out"
+            (click)="smartMeter(); selected == 'Smart Meters' ? selected = null: selected = 'Smart Meters'"
+            *ngIf="adminUser()"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:text-base rounded-md transition duration-150 ease-in-out cursor-pointer"
+            [style.background-color]="selected == 'Smart Meters' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Smart Meters' ? 'white': ''"
           >
             <svg
               class="w-6 h-6 fill-current inline-block"
@@ -61,11 +62,87 @@
                 d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
               ></path>
             </svg>
-            <span class="">Smart Meters</span>
+            <span class="ml-3">Smart Meters</span>
           </a>
           <a
-            (click)="newSmartMeter()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
+            (click)="newSmartMeter(); selected == 'New Smart Meters' ? selected = null: selected = 'New Smart Meters'"
+            *ngIf="adminUser()"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out flex flex-row cursor-pointer"
+            [style.background-color]="selected == 'New Smart Meters' ? '#38b2ac' : ''"
+            [style.color]="selected == 'New Smart Meters' ? 'white': ''"
+
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-plus-square-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.5 4.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3a.5.5 0 0 1 1 0z"
+              />
+            </svg>
+            <div class="flex justify-items-stretch">
+              <div class="ml-3">New Meters </div>
+              <div *ngIf="smartmeters !== 0" class="rounded-full bg-red-500 text-white px-2 ml-5 h-6 flex justify-center items-center">
+                {{smartmeters}}
+              </div>
+            </div>
+          </a>
+
+          <a
+            (click)="consumers(); selected == 'Consumers' ? selected = null: selected = 'Consumers'"
+            *ngIf="adminUser()"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out flex flex-row cursor-pointer"
+            [style.background-color]="selected == 'Consumers' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Consumers' ? 'white': ''"
+
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-person-lines-fill"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"
+              />
+            </svg>
+            <span class="ml-3">Consumers</span>
+          </a>
+          <a
+            (click)="admin(); selected == 'Admins' ? selected = null: selected = 'Admins'"
+            *ngIf="adminUser()"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out cursor-pointer"
+            [style.background-color]="selected == 'Admins' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Admins' ? 'white': ''"
+          >
+            <div class="flex flex-row">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-person-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+                />
+              </svg>
+              <span class="ml-3">Admins</span>
+            </div>
+          </a>
+          <a
+            (click)="consumerHome(); selected == 'Home' ? selected = null: selected = 'Home'"
+            *ngIf="!adminUser()"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out cursor-pointer"
+            [style.background-color]="selected == 'Home' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Home' ? 'white': ''"
           >
             <svg
               class="w-6 h-6 fill-current inline-block"
@@ -73,97 +150,63 @@
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"></path>
+              <path
+                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
+              ></path>
+            </svg>
+            <span class="ml-3">Home</span>
+          </a>
+
+          <a
+            (click)="smartMeterReading(); selected == 'Find smart-meter' ? selected = null: selected = 'Find smart-meter'"
+            *ngIf="!adminUser()"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out cursor-pointer"
+            [style.background-color]="selected == 'Find smart-meter' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Find smart-meter' ? 'white': ''"
+          >
+            <svg
+              class="w-6 h-6 fill-current inline-block"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
+              ></path>
+            </svg>
+            <span class="ml-3">Find smart-meter</span>
+          </a>
+          <a
+            (click)="logOut(); selected == 'Log out' ? selected = null: selected = 'Log out'"
+            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out flex flex-row cursor-pointer"
+            [style.background-color]="selected == 'Log out' ? '#38b2ac' : ''"
+            [style.color]="selected == 'Log out' ? 'white': ''"
+
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-box-arrow-left"
+              viewBox="0 0 16 16"
+            >
               <path
                 fill-rule="evenodd"
-                d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-            <span class="">New Smart Meters</span>
-          </a>
-
-          <a
-            (click)="consumers()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <svg
-              class="w-6 h-6 fill-current inline-block"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+                d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0v2z"
+              />
               <path
                 fill-rule="evenodd"
-                d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
-                clip-rule="evenodd"
-              ></path>
+                d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"
+              />
             </svg>
-            <span class="">Consumers</span>
-          </a>
-          <a
-            (click)="admin()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-          <div class="flex flex-col">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 7.001c0 3.865-3.134 7-7 7s-7-3.135-7-7c0-3.867 3.134-7.001 7-7.001s7 3.134 7 7.001zm-1.598 7.18c-1.506 1.137-3.374 1.82-5.402 1.82-2.03 0-3.899-.685-5.407-1.822-4.072 1.793-6.593 7.376-6.593 9.821h24c0-2.423-2.6-8.006-6.598-9.819z"/></svg>
-
-            <span class="">Admins</span>
-          </div>
-
-          </a>
-          <a
-            (click)="logOut()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <svg
-              class="w-6 h-6 fill-current inline-block"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
-              ></path>
-            </svg>
-            <span class="">Log out</span>
-          </a>
-          <a
-            (click)="consumerHome()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <svg
-              class="w-6 h-6 fill-current inline-block"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
-              ></path>
-            </svg>
-            <span class="">Home</span>
-          </a>
-
-          <a
-            (click)="smartMeterReading()"
-            class="text-sm font-medium text-gray-700 py-2 px-2 hover:bg-teal-500 hover:text-white hover:scale-105 rounded-md transition duration-150 ease-in-out"
-          >
-            <svg
-              class="w-6 h-6 fill-current inline-block"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM14 11a1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1a1 1 0 011-1z"
-              ></path>
-            </svg>
-            <span class="">Home</span>
+            <span class="ml-3">Log out</span>
           </a>
         </div>
       </div>
     </div>
-    <router-outlet></router-outlet>
+    <div class="w-full">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </body>

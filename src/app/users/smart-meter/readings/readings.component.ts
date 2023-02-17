@@ -31,9 +31,14 @@ export class ReadingsComponent implements OnInit {
   }
 
   recordReading() {
-    this.apiService.recordReading(this.data.meterId, this.myForm.value).subscribe((res) => {
-      console.log(res.data)
+    this.apiService.recordReading(this.data.meterId, this.myForm.value).subscribe(() => {
+      this.dialogRef.close();
     })
+  }
+
+  cancel() {
+    this.dialogRef.close()
+
   }
 
   

@@ -29,9 +29,12 @@ export class ListConsumersComponent implements OnInit {
   }
 
   addConsumer() {
-    this.dialog.open(CreateFormComponent, {
+    const dialogRef = this.dialog.open(CreateFormComponent, {
       width: 'auto',
       data: {user: 'consumer'}
+    })
+    dialogRef.afterClosed().subscribe(() => {
+      this.apiService.getAllConsumer().subscribe((res) => this.consumers = res.data)
     })
   }
 
